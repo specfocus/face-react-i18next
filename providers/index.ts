@@ -17,8 +17,8 @@ export type ResourcesPool = (
  * import { Admin } from '@specfocus/view-focus.mui-demo';
  * import { Resource } from '@specfocus/view-focus.mui/code';
  * import i18nProvider from '@specfocus/view-focus.i18next/providerss';
- * import english from '@specfocus/locales/en/core';
- * import french from '@specfocus/locales/fr/core';
+ * import english from '@specfocus/locales/en/general';
+ * import french from '@specfocus/locales/fr/general';
  *
  * const messages = {
  *     fr: french,
