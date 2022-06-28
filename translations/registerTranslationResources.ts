@@ -1,11 +1,11 @@
-import { type TranslationResources } from '@specfocus/view-focus.i18n/i18n/i18next-plugin';
+import { type TranslationResources } from '@specfocus/view-focus.i18n/translations/Translation';
 import i18n from 'i18next';
 import LanguageDetector from 'i18next-browser-languagedetector';
 import I18NextHttpBackend from 'i18next-http-backend';
 import { initReactI18next } from 'react-i18next';
 
 /**
- * 
+ *
  * @param fallbackLng
  * @param resources
  * @param lng

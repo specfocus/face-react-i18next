@@ -1,7 +1,7 @@
-import { I18nProvider } from '@specfocus/view-focus.i18n/i18n';
-import { LocaleResources } from '@specfocus/view-focus.i18n/i18n/i18next-plugin';
+import { TranslationProvider } from '@specfocus/view-focus.i18n/translations/TranslationProvider';
+import type { LocaleResources } from '@specfocus/view-focus.i18n/translations/Locale';
 import i18n from 'i18next';
-import { useTranslation } from 'react-i18next';
+import { useTranslation as useI18nextTranslation } from 'react-i18next';
 
 // https://jaysoo.ca/2014/03/20/i18n-with-es2015-template-literals/
 
@@ -10,13 +10,13 @@ export type ResourcesPool = (
 ) => PromiseLike<LocaleResources>;
 
 /**
- * Build a i18next i18nProvider based on a function returning the messages for a locale
+ * Build a i18next pullResources based on a function returning the messages for a locale
  *
  * @example
  *
- * import { Admin } from '@specfocus/view-focus.mui-demo';
- * import { Resource } from '@specfocus/view-focus.mui/code';
- * import i18nProvider from '@specfocus/view-focus.i18next/providerss';
+ * import { App } from '@specfocus/view-focus.mui-demo';
+ * import { Resource } from '@specfocus/view-focus.mui/resources';
+ * import pullResources from '@specfocus/view-focus.i18next/providerss';
  * import english from '@specfocus/locales/en/general';
  * import french from '@specfocus/locales/fr/general';
  *
@@ -24,20 +24,20 @@ export type ResourcesPool = (
  *     fr: french,
  *     en: english,
  * };
- * const i18nProvider = createI18nProvider(locale => messages[locale])
+ * const TranslationProvider = createTranslationProvider(locale => messages[locale])
  */
-export default (
+export const createTranslationProvider = (
   pullResources: ResourcesPool,
   fallbackLocale: string = 'en'
-): I18nProvider => {
+): TranslationProvider => {
   let _locale = fallbackLocale;
   const messages = pullResources(fallbackLocale);
   if (messages instanceof Promise) {
     throw new Error(
-      `The i18nProvider returned a Promise for the messages of the default locale (${fallbackLocale}). Please update your i18nProvider to return the messages of the default locale in a synchronous way.`
+      `The pullResources returned a Promise for the messages of the default locale (${fallbackLocale}). Please update your pullResources to return the messages of the default locale in a synchronous way.`
     );
   }
- const { t } = useTranslation();
+ const { t } = useI18nextTranslation();
   return {
     translate: (key: string, options: any = {}) => t(key, options),
     changeLocale: (locale: string) =>
