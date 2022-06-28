@@ -1,5 +1,6 @@
-import { TranslationProvider } from '@specfocus/view-focus.i18n/translations/TranslationProvider';
-import type { LocaleResources } from '@specfocus/view-focus.i18n/translations/Locale';
+import type { Locale, LocaleResources } from '@specfocus/view-focus.i18n/translations/Locale';
+import type { TOptions } from '@specfocus/view-focus.i18n/translations/Translation';
+import type { TranslationProvider } from '@specfocus/view-focus.i18n/translations/TranslationProvider';
 import i18n from 'i18next';
 import { useTranslation as useI18nextTranslation } from 'react-i18next';
 
@@ -28,7 +29,7 @@ export type ResourcesPool = (
  */
 export const createTranslationProvider = (
   pullResources: ResourcesPool,
-  fallbackLocale: string = 'en'
+  fallbackLocale: Locale = 'en'
 ): TranslationProvider => {
   let _locale = fallbackLocale;
   const messages = pullResources(fallbackLocale);
@@ -39,7 +40,7 @@ export const createTranslationProvider = (
   }
  const { t } = useI18nextTranslation();
   return {
-    translate: (key: string, options: any = {}) => t(key, options),
+    translate: (key: string, options: TOptions = {}) => t(key, options),
     changeLocale: (locale: string) =>
       // We systematically return a Promise for the messages because
       // pullResources may return a Promise
@@ -55,6 +56,6 @@ export const createTranslationProvider = (
           });
         }
       ),
-    getLocale: () => _locale,
+    getLocale: (): Locale => _locale,
   };
 };
