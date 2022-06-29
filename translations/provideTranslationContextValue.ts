@@ -25,7 +25,7 @@ export type ResourcesPool = (
  *     fr: french,
  *     en: english,
  * };
- * const TranslationContextValue = createTranslationProvider(locale => messages[locale])
+ * const TranslationContextValue = provideTranslationContextValue(locale => messages[locale])
  */
 export const provideTranslationContextValue = (
   pullResources: ResourcesPool,
