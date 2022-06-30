@@ -1,2 +1,1 @@
-export { useTranslations as provideTranslationContextValue } from './useTranslations';
-export { registerTranslationResources } from './registerTranslationResources';
+export { useTranslator, registerTranslations } from './useTranslator';

@@ -1,5 +1,5 @@
 import type { Locale, LocaleResources } from '@specfocus/view-focus.i18n/translations/Locale';
-import type { TranslationContextValue } from '@specfocus/view-focus.i18n/translations/TranslationContext';
+import type { Translator } from '@specfocus/view-focus.i18n/translations/TranslationContext';
 import { useCallback, useState } from 'react';
 import { useLocale } from './useLocale';
 
@@ -24,12 +24,12 @@ export type ResourcesPool = (
  *     fr: french,
  *     en: english,
  * };
- * const TranslationContextValue = provideTranslationContextValue(locale => messages[locale])
+ * const Translator = useTranslator(locale => messages[locale])
  */
 export const useTranslations = (
   fallbackLocale: Locale = 'en',
   pullResources?: ResourcesPool,
-): TranslationContextValue => {
+): Translator => {
   const [locale, setLocale] = useState(fallbackLocale);
   const { translate, getLocale } = useLocale(locale, pullResources);
   const changeLocale = useCallback(
